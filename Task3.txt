@@ -1,0 +1,40 @@
+#task 3
+tree = {
+'A': ['B', 'C'],
+'B': ['D', 'E'],
+'C': ['F', 'G'],
+'D': ['H'],
+'E': [],
+'F': ['I'],
+'G': [],
+'H': [],
+'I': []
+}
+
+def dls(node, goal, depth, path):
+  if depth == 0:
+    return False
+  if node == goal:
+    path.append(node)
+    return True
+  if node not in tree:
+    return False
+  for child in tree[node]:
+   if dls(child, goal, depth - 1, path):
+    path.append(node)
+    return True
+  return False
+
+def itr_deep(start, goal, max_depth):
+ for depth in range(max_depth + 1):
+    print(f"Depth: {depth}")
+    path = []
+    if dls(start, goal, depth, path):
+      print("\nPath to goal:"," → ".join(reversed(path)))
+      return
+    print("Goal not found within depth limit.")
+
+s_node = 'A'
+g_node = 'I'
+maxDepth= 5
+itr_deep(s_node, g_node, maxDepth)
